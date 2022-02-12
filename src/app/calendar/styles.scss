@@ -14,36 +14,47 @@
         background-color: rgb(156, 170, 189);
         padding: 5px 5px 5px 15px;
         margin-bottom: 10px;
-        .previous, .next {
+        .previous,
+        .next {
             cursor: pointer;
+        }
+        .current {
+            position: relative;
+            left: -8px;
         }
     }
     .day {
         position: relative;
         width: calc(100% / 7);
-        height: 44px;
+        height: 34px;
         display: inline-block;
         background-color: #fff;
-        padding: 0;
+        padding-top: 5px;
         margin: 0;
         box-sizing: border-box;
         z-index: 1;
         text-align: center;
         cursor: pointer;
+        // div {
+
+        //     padding: 0;
+        //     margin: 0;
+        // }
         .selected {
+            padding: 8px 5px;
             background-color: rgb(156, 170, 189);
         }
         .preview-selected {
+            padding: 8px 5px;
             background-color: rgb(220, 227, 235);
         }
         .before {
-            color:rgb(210, 215, 223)
+            color: rgb(210, 215, 223);
             // background-color: rgb(208, 220, 238);
-
         }
         .today {
+            padding: 8px 5px;
             background-color: rgb(194, 204, 216);
-
         }
     }
 }

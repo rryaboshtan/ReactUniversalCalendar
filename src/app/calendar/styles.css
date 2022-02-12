@@ -28,17 +28,23 @@
   margin-bottom: 10px;
 }
 
-.calendar .header .previous, .calendar .header .next {
+.calendar .header .previous,
+.calendar .header .next {
   cursor: pointer;
+}
+
+.calendar .header .current {
+  position: relative;
+  left: -8px;
 }
 
 .calendar .day {
   position: relative;
   width: calc(100% / 7);
-  height: 44px;
+  height: 34px;
   display: inline-block;
   background-color: #fff;
-  padding: 0;
+  padding-top: 5px;
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -48,10 +54,12 @@
 }
 
 .calendar .day .selected {
+  padding: 8px 5px;
   background-color: #9caabd;
 }
 
 .calendar .day .preview-selected {
+  padding: 8px 5px;
   background-color: #dce3eb;
 }
 
@@ -60,5 +68,6 @@
 }
 
 .calendar .day .today {
+  padding: 8px 5px;
   background-color: #c2ccd8;
 }

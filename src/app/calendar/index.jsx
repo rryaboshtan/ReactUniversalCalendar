@@ -19,43 +19,65 @@ export default function Calendar({ value, setValue }) {
    const setPreviewStyles = createHandler((day) => {
       let tempDay = day.clone();
       const tempArray = [];
-      let findedIndex = null;
+      // let findedIndex = null;
 
       if (firstValue) {
-         if (day.isAfter(firstValue, 'day')) {
-            tempDay = day.clone().add(1, 'day');
-            while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
-               tempArray.push(tempDay);
-               tempDay = tempDay.subtract(1, 'day').clone();
-            }
-            // tempArray.push(firstValue);
-            setPreviewDates([...dates, ...tempArray]);
-         } else if (day.isBefore(firstValue, 'day')) {
-            tempDay.subtract(1, 'day');
-            while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
-               console.error('isBefore');
-               tempArray.push(tempDay);
-               tempDay = tempDay.add(1, 'day').clone();
-            }
-            // tempArray.push(firstValue);
-            setPreviewDates([...dates, ...tempArray]);
-         }
+         setDatesArray(day, tempDay, tempArray, setPreviewDates);
+         // if (day.isAfter(firstValue, 'day')) {
+         //    tempDay = day.clone().add(1, 'day');
+         //    while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
+         //       tempArray.push(tempDay);
+         //       tempDay = tempDay.subtract(1, 'day').clone();
+         //    }
+         //    // tempArray.push(firstValue);
+         //    setPreviewDates([...dates, ...tempArray]);
+         // } else if (day.isBefore(firstValue, 'day')) {
+         //    tempDay.subtract(1, 'day');
+         //    while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
+         //       console.error('isBefore');
+         //       tempArray.push(tempDay);
+         //       tempDay = tempDay.add(1, 'day').clone();
+         //    }
+         //    // tempArray.push(firstValue);
+         //    setPreviewDates([...dates, ...tempArray]);
+         // }
       
 
       }
    })
 
+   function setDatesArray(day, tempDay, tempArray, setDatesCallback) {
+       if (day.isAfter(firstValue, 'day')) {
+          tempDay = day.clone().add(1, 'day');
+          while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
+             tempArray.push(tempDay);
+             tempDay = tempDay.subtract(1, 'day').clone();
+          }
+          // tempArray.push(firstValue);
+          setDatesCallback([...dates, ...tempArray]);
+       } else if (day.isBefore(firstValue, 'day')) {
+          tempDay.subtract(1, 'day');
+          while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
+             console.error('isBefore');
+             tempArray.push(tempDay);
+             tempDay = tempDay.add(1, 'day').clone();
+          }
+          // tempArray.push(firstValue);
+          setDatesCallback([...dates, ...tempArray]);
+       }
+   }
+
    const setDayValue = createHandler((day, event) => {
       console.log('e.dataset = ', event.target.dataset.day);
       const tempArray = [];
       let tempDay = day.clone();
-      let findedIndex = null;
+      // let findedIndex = null;
       // tempDay.add(1, 'day');
 
       if (!beforeToday(day)) {
          // if (firstValue && secondValue && day.isBetween(firstValue, secondValue)) {
 
-         findedIndex = dates.findIndex(date => date?.isSame(day));
+         const findedIndex = dates.findIndex(date => date?.isSame(day));
          const previewFindedIndex = dates.findIndex(date => date?.isSame(day));
          if (findedIndex !== -1) {
             console.error('in Between-------');
