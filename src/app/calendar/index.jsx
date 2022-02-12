@@ -19,11 +19,23 @@ export default function Calendar({ value, setValue }) {
       console.log('e.dataset = ', event.target.dataset.day);
       const tempArray = [];
       let tempDay = day.clone();
+      let findedIndex = null;
       tempDay.add(1, 'day');
 
       if (!beforeToday(day)) {
+         // if (firstValue && secondValue && day.isBetween(firstValue, secondValue)) {
+            
+            findedIndex = dates.findIndex(date => date?.isSame(day));
+         if (findedIndex !== -1) {
+               console.error('in Between-------');
+               setDates(dates.filter((date, index) => index !== findedIndex));
+               return;
+            }
+         // }
+
          if (firstValue && secondValue && !day.isBetween(firstValue, secondValue) && !day.isBetween(secondValue, firstValue)) {
             setDates([...dates, day]);
+            return;
          }
          if (!firstValue) {
             setFirstValue(day);
@@ -39,6 +51,9 @@ export default function Calendar({ value, setValue }) {
                // tempArray.push(firstValue);
                setDates([...dates, ...tempArray]);
             }
+
+            setFirstValue(null);
+            setSecondValue(null);
             // if (day.isBefore(firstValue, 'day')) {
             //    while (tempDay.isBefore(firstValue.clone().add(1, 'day'), 'day')) {
             //       tempArray.push(tempDay);
