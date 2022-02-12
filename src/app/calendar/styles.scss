@@ -1,5 +1,23 @@
 .calendar {
     width: 400px;
+    border: 2px solid rgb(156, 170, 189);
+    .day-names {
+        display: flex;
+        justify-content: space-around;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(156, 170, 189);
+        padding: 5px 5px 5px 15px;
+        margin-bottom: 10px;
+        .previous, .next {
+            cursor: pointer;
+        }
+    }
     .day {
         position: relative;
         width: calc(100% / 7);
@@ -14,6 +32,15 @@
         cursor: pointer;
         .selected {
             background-color: rgb(156, 170, 189);
+        }
+        .before {
+            color:rgb(210, 215, 223)
+            // background-color: rgb(208, 220, 238);
+
+        }
+        .today {
+            background-color: rgb(194, 204, 216);
+
         }
     }
 }

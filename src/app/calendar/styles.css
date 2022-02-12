@@ -1,5 +1,35 @@
 .calendar {
   width: 400px;
+  border: 2px solid #9caabd;
+}
+
+.calendar .day-names {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.calendar .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #9caabd;
+  padding: 5px 5px 5px 15px;
+  margin-bottom: 10px;
+}
+
+.calendar .header .previous, .calendar .header .next {
+  cursor: pointer;
 }
 
 .calendar .day {
@@ -19,4 +49,12 @@
 
 .calendar .day .selected {
   background-color: #9caabd;
+}
+
+.calendar .day .before {
+  color: #d2d7df;
+}
+
+.calendar .day .today {
+  background-color: #c2ccd8;
 }
