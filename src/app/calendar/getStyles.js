@@ -34,7 +34,18 @@ export function daysStyles(day, dayArray) {
       return 'selected';
    }
    return '';
-   // }
+}
+
+export function previewDaysStyles(day, dayArray) {
+   // let include = false;
+   // if (Array.isArray(value)) {
+   console.log('array value = ', dayArray);
+   if (dayArray.length > 1 && dayArray.some(dayValue => dayValue?.isSame(day, 'day'))) {
+      return 'preview-selected';
+   } else if (dayArray && dayArray.length === 1 && dayArray[0]?.isSame(day, 'day')) {
+      return 'preview-selected';
+   }
+   return '';
 }
 
 export default function dayStyles(day, value, secondValue = null) {
