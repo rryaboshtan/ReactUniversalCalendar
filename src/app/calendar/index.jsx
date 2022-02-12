@@ -21,18 +21,15 @@ export default function Calendar({ value, setValue }) {
       let tempDay = day.clone();
       tempDay.add(1, 'day');
 
-      
-      if (firstValue && secondValue && !day.isBetween(firstValue, secondValue) && !day.isBetween(secondValue, firstValue)) {
-         setDates([...dates, day]);
-      }
-      if (!firstValue) {
-         if (!beforeToday(day)) {
+      if (!beforeToday(day)) {
+         if (firstValue && secondValue && !day.isBetween(firstValue, secondValue) && !day.isBetween(secondValue, firstValue)) {
+            setDates([...dates, day]);
+         }
+         if (!firstValue) {
             setFirstValue(day);
             setDates([...dates, day]);
             setDates([...dates, day]);
-         }
-      } else if (!secondValue) {
-         if (!beforeToday(day)) {
+         } else if (!secondValue) {
             setSecondValue(day);
             if (day.isAfter(firstValue, 'day')) {
                while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
