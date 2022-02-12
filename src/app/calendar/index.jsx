@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import createHandler from 'react-cached-handler';
 
 import buildCalendar from './build';
-import dayStyles, { beforeToday, daysStyles } from './styles';
+import dayStyles, { beforeToday, daysStyles } from './getStyles';
 import Header from './header';
 
 import './styles.css';
@@ -73,7 +73,8 @@ export default function Calendar({ value, setValue }) {
 
    useEffect(() => {
       // setCalendar(buildCalendar(value));
-      console.log('dates = ', dates);
+      console.error('dates = ', dates);
+      console.error('dates = ', dates.map(date => date.format('DD/MM/YYYY')));
    }, [dates]);
 
    return (
@@ -94,8 +95,8 @@ export default function Calendar({ value, setValue }) {
                         {console.log('secondValue = ', secondValue)}
                         <div
                            className={
-                              dayStyles(day, firstValue) ||
-                              dayStyles(day, secondValue) ||
+                              // dayStyles(day, firstValue) ||
+                              // dayStyles(day, secondValue) ||
                               dayStyles(day, firstValue, secondValue) ||
                               dayStyles(day, secondValue, firstValue) ||
                               (dates && dates.length && daysStyles(day, dates))
