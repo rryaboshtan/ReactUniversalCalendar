@@ -20,17 +20,17 @@ export default function Calendar({ value, setValue }) {
       const tempArray = [];
       let tempDay = day.clone();
       let findedIndex = null;
-      tempDay.add(1, 'day');
+      // tempDay.add(1, 'day');
 
       if (!beforeToday(day)) {
          // if (firstValue && secondValue && day.isBetween(firstValue, secondValue)) {
-            
-            findedIndex = dates.findIndex(date => date?.isSame(day));
+
+         findedIndex = dates.findIndex(date => date?.isSame(day));
          if (findedIndex !== -1) {
-               console.error('in Between-------');
-               setDates(dates.filter((date, index) => index !== findedIndex));
-               return;
-            }
+            console.error('in Between-------');
+            setDates(dates.filter((date, index) => index !== findedIndex));
+            return;
+         }
          // }
 
          if (firstValue && secondValue && !day.isBetween(firstValue, secondValue) && !day.isBetween(secondValue, firstValue)) {
@@ -44,9 +44,19 @@ export default function Calendar({ value, setValue }) {
          } else if (!secondValue) {
             setSecondValue(day);
             if (day.isAfter(firstValue, 'day')) {
+               tempDay = day.clone().add(1, 'day');
                while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
                   tempArray.push(tempDay);
                   tempDay = tempDay.subtract(1, 'day').clone();
+               }
+               // tempArray.push(firstValue);
+               setDates([...dates, ...tempArray]);
+            } else if (day.isBefore(firstValue, 'day')) {
+               tempDay.subtract(1, 'day');
+               while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
+                  console.error('isBefore');
+                  tempArray.push(tempDay);
+                  tempDay = tempDay.add(1, 'day').clone();
                }
                // tempArray.push(firstValue);
                setDates([...dates, ...tempArray]);
@@ -54,14 +64,6 @@ export default function Calendar({ value, setValue }) {
 
             setFirstValue(null);
             setSecondValue(null);
-            // if (day.isBefore(firstValue, 'day')) {
-            //    while (tempDay.isBefore(firstValue.clone().add(1, 'day'), 'day')) {
-            //       tempArray.push(tempDay);
-            //       tempDay = tempDay.subtract(1, 'day').clone();
-            //    }
-            //    // tempArray.push(firstValue);
-            //    setDates([...dates, ...tempArray]);
-            // }
          }
       }
    });
@@ -74,7 +76,10 @@ export default function Calendar({ value, setValue }) {
    useEffect(() => {
       // setCalendar(buildCalendar(value));
       console.error('dates = ', dates);
-      console.error('dates = ', dates.map(date => date.format('DD/MM/YYYY')));
+      console.error(
+         'dates = ',
+         dates.map(date => date.format('DD/MM/YYYY'))
+      );
    }, [dates]);
 
    return (
