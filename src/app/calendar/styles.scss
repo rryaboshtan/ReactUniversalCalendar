@@ -16,7 +16,6 @@
         margin-bottom: 10px;
         .previous,
         .next {
-            // font-size: 18px;
             transform: scale(1.7);
             padding: 5px 15px;
             margin-bottom: 4px;
@@ -42,11 +41,7 @@
         z-index: 1;
         text-align: center;
         cursor: pointer;
-        // div {
-
-        //     padding: 0;
-        //     margin: 0;
-        // }
+   
         .selected {
             padding: 8px 5px;
             background-color: rgb(156, 170, 189);
@@ -57,7 +52,6 @@
         }
         .before {
             color: rgb(210, 215, 223);
-            // background-color: rgb(208, 220, 238);
         }
         .today {
             padding: 8px 5px;
