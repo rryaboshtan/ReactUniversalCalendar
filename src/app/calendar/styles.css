@@ -1,0 +1,22 @@
+.calendar {
+  width: 400px;
+}
+
+.calendar .day {
+  position: relative;
+  width: calc(100% / 7);
+  height: 44px;
+  display: inline-block;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar .day .selected {
+  background-color: #9caabd;
+}
