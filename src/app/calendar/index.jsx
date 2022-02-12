@@ -9,11 +9,11 @@ import Header from './header';
 
 import './styles.css';
 
-export default function Calendar({ value, setValue }) {
+export default function Calendar({ value, setValue, defaultDates }) {
    const [calendar, setCalendar] = useState([]);
    const [firstValue, setFirstValue] = useState(null);
    const [secondValue, setSecondValue] = useState(null);
-   const [dates, setDates] = useState([]);
+   const [dates, setDates] = useState(defaultDates || []);
    const [previewDates, setPreviewDates] = useState([]);
 
    const setPreviewStyles = createHandler((day) => {
@@ -42,7 +42,6 @@ export default function Calendar({ value, setValue }) {
          //    setPreviewDates([...dates, ...tempArray]);
          // }
       
-
       }
    })
 
@@ -97,24 +96,25 @@ export default function Calendar({ value, setValue }) {
             setDates([...dates, day]);
          } else if (!secondValue) {
             setSecondValue(day);
-            if (day.isAfter(firstValue, 'day')) {
-               tempDay = day.clone().add(1, 'day');
-               while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
-                  tempArray.push(tempDay);
-                  tempDay = tempDay.subtract(1, 'day').clone();
-               }
-               // tempArray.push(firstValue);
-               setDates([...dates, ...tempArray]);
-            } else if (day.isBefore(firstValue, 'day')) {
-               tempDay.subtract(1, 'day');
-               while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
-                  console.error('isBefore');
-                  tempArray.push(tempDay);
-                  tempDay = tempDay.add(1, 'day').clone();
-               }
-               // tempArray.push(firstValue);
-               setDates([...dates, ...tempArray]);
-            }
+            setDatesArray(day, tempDay, tempArray, setDates);
+            // if (day.isAfter(firstValue, 'day')) {
+            //    tempDay = day.clone().add(1, 'day');
+            //    while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
+            //       tempArray.push(tempDay);
+            //       tempDay = tempDay.subtract(1, 'day').clone();
+            //    }
+            //    // tempArray.push(firstValue);
+            //    setDates([...dates, ...tempArray]);
+            // } else if (day.isBefore(firstValue, 'day')) {
+            //    tempDay.subtract(1, 'day');
+            //    while (tempDay.isBefore(firstValue.clone().subtract(1, 'day'), 'day')) {
+            //       console.error('isBefore');
+            //       tempArray.push(tempDay);
+            //       tempDay = tempDay.add(1, 'day').clone();
+            //    }
+            //    // tempArray.push(firstValue);
+            //    setDates([...dates, ...tempArray]);
+            // }
 
             setFirstValue(null);
             setSecondValue(null);
@@ -143,7 +143,7 @@ export default function Calendar({ value, setValue }) {
          <Header value={value} setValue={setValue}></Header>
          <div className='day-names'>
             {['m', 't', 'w', 't', 'f', 's', 's'].map(d => (
-               <div className='week'>{d}</div>
+               <div key={uuidv4()} className='week'>{d}</div>
             ))}
          </div>
          <div className='body'>

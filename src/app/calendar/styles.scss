@@ -16,7 +16,14 @@
         margin-bottom: 10px;
         .previous,
         .next {
+            // font-size: 18px;
+            transform: scale(1.7);
+            padding: 5px 15px;
+            margin-bottom: 4px;
             cursor: pointer;
+        }
+        .next {
+            margin-right: 5px;
         }
         .current {
             position: relative;

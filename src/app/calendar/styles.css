@@ -30,7 +30,16 @@
 
 .calendar .header .previous,
 .calendar .header .next {
+  -webkit-transform: scale(1.7);
+      -ms-transform: scale(1.7);
+          transform: scale(1.7);
+  padding: 5px 15px;
+  margin-bottom: 4px;
   cursor: pointer;
+}
+
+.calendar .header .next {
+  margin-right: 5px;
 }
 
 .calendar .header .current {
