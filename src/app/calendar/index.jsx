@@ -57,9 +57,9 @@ export default function Calendar() {
    const [previewDates, setPreviewDates] = useState([]);
    const [value, setValue] = useState(moment());
 
-   useEffect(() => {
-      console.error('Other dates = ', dates);
-   }, [dates]);
+   // useEffect(() => {
+   //    console.error('Other dates = ', dates);
+   // }, [dates]);
 
    const setPreviewStyles = createHandler(day => {
       let tempDay = day.clone();
@@ -174,7 +174,6 @@ export default function Calendar() {
 
    useEffect(() => {
       setCalendar(buildCalendar(value));
-      // console.log('dates = ', dates);
    }, [value, firstValue, secondValue]);
 
    useEffect(() => {
@@ -182,10 +181,9 @@ export default function Calendar() {
       console.error('previewDates = ', previewDates);
 
       console.error('dates = ', dates);
-      console.error(
-         'dates = ',
-         dates.map(date => date.format('DD/MM/YYYY'))
-      );
+      const array = dates?.map(date => date.format('DD/MM/YYYY'));
+      console.error('dates = ', [...new Set(array)]);
+
    }, [dates, previewDates]);
 
    return (
