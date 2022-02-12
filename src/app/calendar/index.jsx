@@ -22,7 +22,7 @@ export default function Calendar({ value, setValue, defaultDates }) {
       // let findedIndex = null;
 
       if (firstValue) {
-         setDatesArray(day, tempDay, tempArray, setPreviewDates);
+         setDatesArray(day, tempDay, tempArray, setPreviewDates, false);
          // if (day.isAfter(firstValue, 'day')) {
          //    tempDay = day.clone().add(1, 'day');
          //    while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
@@ -45,7 +45,7 @@ export default function Calendar({ value, setValue, defaultDates }) {
       }
    })
 
-   function setDatesArray(day, tempDay, tempArray, setDatesCallback) {
+   function setDatesArray(day, tempDay, tempArray, setDatesCallback, selectedDates) {
        if (day.isAfter(firstValue, 'day')) {
           tempDay = day.clone().add(1, 'day');
           while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
@@ -62,7 +62,11 @@ export default function Calendar({ value, setValue, defaultDates }) {
              tempDay = tempDay.add(1, 'day').clone();
           }
           // tempArray.push(firstValue);
-          setDatesCallback([...dates, ...tempArray]);
+          if (selectedDates) {
+             setDatesCallback([...dates, ...tempArray]);
+          } else {
+              setDatesCallback([...tempArray]);
+          }
        }
    }
 
@@ -95,8 +99,10 @@ export default function Calendar({ value, setValue, defaultDates }) {
             setDates([...dates, day]);
             setDates([...dates, day]);
          } else if (!secondValue) {
+            setPreviewDates([]);
             setSecondValue(day);
-            setDatesArray(day, tempDay, tempArray, setDates);
+
+            setDatesArray(day, tempDay, tempArray, setDates, true);
             // if (day.isAfter(firstValue, 'day')) {
             //    tempDay = day.clone().add(1, 'day');
             //    while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
