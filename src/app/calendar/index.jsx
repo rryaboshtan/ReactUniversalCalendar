@@ -17,21 +17,52 @@ export default function Calendar({ value, setValue }) {
 
    const setDayValue = createHandler((day, event) => {
       console.log('e.dataset = ', event.target.dataset.day);
+      const tempArray = [];
+      let tempDay = day.clone();
+      tempDay.add(1, 'day');
 
+      
       if (firstValue && secondValue && !day.isBetween(firstValue, secondValue) && !day.isBetween(secondValue, firstValue)) {
-         setDates([...dates, day])
+         setDates([...dates, day]);
       }
       if (!firstValue) {
-         return !beforeToday(day) && setFirstValue(day);
+         if (!beforeToday(day)) {
+            setFirstValue(day);
+            setDates([...dates, day]);
+            setDates([...dates, day]);
+         }
       } else if (!secondValue) {
-         return !beforeToday(day) && setSecondValue(day);
-
+         if (!beforeToday(day)) {
+            setSecondValue(day);
+            if (day.isAfter(firstValue, 'day')) {
+               while (tempDay.isAfter(firstValue.clone().add(1, 'day'), 'day')) {
+                  tempArray.push(tempDay);
+                  tempDay = tempDay.subtract(1, 'day').clone();
+               }
+               // tempArray.push(firstValue);
+               setDates([...dates, ...tempArray]);
+            }
+            // if (day.isBefore(firstValue, 'day')) {
+            //    while (tempDay.isBefore(firstValue.clone().add(1, 'day'), 'day')) {
+            //       tempArray.push(tempDay);
+            //       tempDay = tempDay.subtract(1, 'day').clone();
+            //    }
+            //    // tempArray.push(firstValue);
+            //    setDates([...dates, ...tempArray]);
+            // }
+         }
       }
    });
 
    useEffect(() => {
       setCalendar(buildCalendar(value));
+      // console.log('dates = ', dates);
    }, [value, firstValue, secondValue]);
+
+   useEffect(() => {
+      // setCalendar(buildCalendar(value));
+      console.log('dates = ', dates);
+   }, [dates]);
 
    return (
       <div className='calendar'>
@@ -55,7 +86,7 @@ export default function Calendar({ value, setValue }) {
                               dayStyles(day, secondValue) ||
                               dayStyles(day, firstValue, secondValue) ||
                               dayStyles(day, secondValue, firstValue) ||
-                              daysStyles(day, dates)
+                              (dates && dates.length && daysStyles(day, dates))
                            }
                         >
                            {day.format('D').toString()}

@@ -1,7 +1,7 @@
 function isSelected(day, value) {
    console.log('value ============== ', value);
    if (value) {
-      return value.isSame(day, 'day');
+      return value?.isSame(day, 'day');
    } else {
       return false;
    }
@@ -21,16 +21,19 @@ export function beforeToday(day) {
 }
 
 function isToday(day) {
-   return day.isSame(new Date(), 'day');
+   return day?.isSame(new Date(), 'day');
 }
 
 export function daysStyles(day, dayArray) {
    // let include = false;
    // if (Array.isArray(value)) {
    console.log('array value = ', dayArray);
-   if (dayArray.some(dayValue => dayValue.isSame(day, 'day'))) {
+   if (dayArray.length > 1 && dayArray.some(dayValue => dayValue?.isSame(day, 'day'))) {
+      return 'selected';
+   } else if (dayArray && dayArray.length === 1 && dayArray[0]?.isSame(day, 'day')) {
       return 'selected';
    }
+   return '';
    // }
 }
 
