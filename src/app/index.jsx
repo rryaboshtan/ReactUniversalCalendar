@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import moment from 'moment';
 
-// import './styles.css'
-
 import Calendar from './calendar';
 
 export default function App() {
-   // moment.locale('ru');
    const [value, setValue] = useState(moment());
    let dates = [
       '15/02/2022',
@@ -38,8 +35,6 @@ export default function App() {
       '15/04/2022',
       '14/04/2022',
    ];
-
-//    let dateValue = moment();
 
    dates = dates.map(date => {
       const array = date.split('/');
